@@ -4,14 +4,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the data
-domain_data_1 = np.load('Data/23_domain.npy')
-interior_data_1 = np.load('Data/23_interior.npy')
-domain_data_2 = np.load('Data/69_domain.npy')
-interior_data_2 = np.load('Data/69_interior.npy')
-domain_data_3 = np.load('Data/630_domain.npy')
-interior_data_3 = np.load('Data/630_interior.npy')
-domain_data_4 = np.load('Data/2755_domain.npy')
-interior_data_4 = np.load('Data/2755_interior.npy')
+domain_data_1 = np.load('testdata/23_domain.npy')
+interior_data_1 = np.load('testdata/23_interior.npy')
+domain_data_2 = np.load('testdata/69_domain.npy')
+interior_data_2 = np.load('testdata/69_interior.npy')
+domain_data_3 = np.load('testdata/630_domain.npy')
+interior_data_3 = np.load('testdata/630_interior.npy')
+domain_data_4 = np.load('testdata/2755_domain.npy')
+interior_data_4 = np.load('testdata/2755_interior.npy')
 
 # Save the raw data of 23_domain.npy and 23_interior.npy into text files
 np.savetxt('23_domain_data.txt', domain_data_1, fmt='%s')
