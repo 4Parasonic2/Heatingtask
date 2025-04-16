@@ -4,6 +4,7 @@ Due on 04 May 2025 11:55 PM
 26 Feb - 4 May
 
 Open tasks 
+
 ✅ 1. Familiarize yourself with the data.
 Load and visualize the input data for a few floorplans using a separate Python script, Jupyter notebook, or your preferred tool.
 
