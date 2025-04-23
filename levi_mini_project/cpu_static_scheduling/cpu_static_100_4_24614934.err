@@ -1,0 +1,10 @@
+Loaded module: cuda/11.8
+Traceback (most recent call last):
+  File "/zhome/c6/c/213742/mini_project/cpu_static_scheduling/sim.py", line 68, in <module>
+    with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../data/modified_swiss_dwellings/building_ids.txt'
+
+real	0m0.899s
+user	0m0.567s
+sys	0m0.147s

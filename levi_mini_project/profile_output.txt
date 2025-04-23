@@ -1,0 +1,24 @@
+Timer unit: 1e-09 s
+
+Total time: 2.85116 s
+File: /Users/levente/uni/2_semester/hpc/mini_project/task3.py
+Function: jacobi at line 15
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    15                                           @line_profiler.profile
+    16                                           def jacobi(u, interior_mask, max_iter, atol=1e-6):
+    17         1     153000.0 153000.0      0.0      u = np.copy(u)
+    18                                           
+    19      3602     767000.0    212.9      0.0      for i in range(max_iter):
+    20                                                   # Compute average of left, right, up and down neighbors, see eq. (1)
+    21      3602 1757806000.0 488008.3     61.7          u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
+    22      3602  316576000.0  87889.0     11.1          u_new_interior = u_new[interior_mask]
+    23      3602  455680000.0 126507.5     16.0          delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
+    24      3602  319196000.0  88616.3     11.2          u[1:-1, 1:-1][interior_mask] = u_new_interior
+    25                                           
+    26      3602     978000.0    271.5      0.0          if delta < atol:
+    27         1       1000.0   1000.0      0.0              break
+    28         1          0.0      0.0      0.0      return u
+
+  2.85 seconds - /Users/levente/uni/2_semester/hpc/mini_project/task3.py:15 - jacobi

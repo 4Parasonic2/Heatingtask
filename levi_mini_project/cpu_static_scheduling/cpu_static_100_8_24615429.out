@@ -1,0 +1,55 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24615429: <cpu_static> in cluster <dcc> Exited
+
+Job <cpu_static> was submitted from host <n-62-30-2> by user <s242964> in cluster <dcc> at Tue Apr  8 20:32:51 2025
+Job was executed on host(s) <8*n-62-30-23>, in queue <hpc>, as user <s242964> in cluster <dcc> at Tue Apr  8 21:38:13 2025
+</zhome/c6/c/213742> was used as the home directory.
+</zhome/c6/c/213742/mini_project/cpu_static_scheduling> was used as the working directory.
+Started at Tue Apr  8 21:38:13 2025
+Terminated at Tue Apr  8 21:38:15 2025
+Results reported at Tue Apr  8 21:38:15 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -R "rusage[mem=1024MB] select[model==XeonGold6142] span[hosts=1]"
+#BSUB -q hpc
+#BSUB -W 60
+#BSUB -J cpu_static
+#BSUB -n 8
+#BSUB -o cpu_static_100_8_%J.out
+#BSUB -e cpu_static_100_8_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+time python sim.py 100 8
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   1.78 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8192.00 MB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   4 sec.
+    Turnaround time :                            3924 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <cpu_static_100_8_24615429.err> for stderr output of this job.
+

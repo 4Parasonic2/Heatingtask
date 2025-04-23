@@ -1,0 +1,59 @@
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 6.634732342982111, 5.595448260511732, 6.654370547177317, 88.63874724241438
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24636832: <gpu_numba> in cluster <dcc> Done
+
+Job <gpu_numba> was submitted from host <n-62-30-5> by user <s242964> in cluster <dcc> at Thu Apr 10 21:57:38 2025
+Job was executed on host(s) <4*n-62-12-22>, in queue <c02613>, as user <s242964> in cluster <dcc> at Thu Apr 10 21:57:40 2025
+</zhome/c6/c/213742> was used as the home directory.
+</zhome/c6/c/213742/mini_project/gpu_numba> was used as the working directory.
+Started at Thu Apr 10 21:57:40 2025
+Terminated at Thu Apr 10 21:58:54 2025
+Results reported at Thu Apr 10 21:58:54 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -R "rusage[mem=4096MB] span[hosts=1]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -q c02613
+#BSUB -W 00:50
+#BSUB -J gpu_numba
+#BSUB -n 4
+#BSUB -o gpu_numba_%J.out
+#BSUB -e gpu_numba_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+time python sim.py 1
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   72.25 sec.
+    Max Memory :                                 101 MB
+    Average Memory :                             100.67 MB
+    Total Requested Memory :                     16384.00 MB
+    Delta Memory :                               16283.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                7
+    Run time :                                   110 sec.
+    Turnaround time :                            76 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <gpu_numba_24636832.err> for stderr output of this job.
+
