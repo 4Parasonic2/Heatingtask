@@ -1,5 +1,6 @@
 from os.path import join
 import sys
+import line_profiler
 
 import numpy as np
 
@@ -11,7 +12,7 @@ def load_data(load_dir, bid):
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
 
-
+@line_profiler.profile
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
     u = np.copy(u)
 
@@ -43,9 +44,7 @@ def summary_stats(u, interior_mask):
 
 if __name__ == '__main__':
     # Load data
-    #LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
-    #Local version
-    LOAD_DIR = 'testdata'
+    LOAD_DIR = '../data/modified_swiss_dwellings'
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
         building_ids = f.read().splitlines()
 
@@ -67,7 +66,6 @@ if __name__ == '__main__':
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
 
-    # Task 4: Profile the reference jacobi function using kernprof.
     all_u = np.empty_like(all_u0)
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
         u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
@@ -79,3 +77,21 @@ if __name__ == '__main__':
     for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
         stats = summary_stats(u, interior_mask)
         print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+
+
+# Line #      Hits         Time  Per Hit   % Time  Line Contents
+# ==============================================================
+#     15                                           @line_profiler.profile
+#     16                                           def jacobi(u, interior_mask, max_iter, atol=1e-6):
+#     17         1        153.0    153.0      0.0      u = np.copy(u)                                                           <---- Copy into temp array
+#     18
+#     19      3602        767.0      0.2      0.0      for i in range(max_iter):
+#     20                                                   # Compute average of left, right, up and down neighbors, see eq. (1)
+#     21      3602    1757806.0    488.0     61.7          u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1]) <--- Update values in copied array
+#     22      3602     316576.0     87.9     11.1          u_new_interior = u_new[interior_mask]                               <--- get interior values with the mask
+#     23      3602     455680.0    126.5     16.0          delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max() <--- get the biggest change in values
+#     24      3602     319196.0     88.6     11.2          u[1:-1, 1:-1][interior_mask] = u_new_interior                       <----- Update array
+#     25
+#     26      3602        978.0      0.3      0.0          if delta < atol:                                                  <----- If there is no change in the values, stop
+#     27         1          1.0      1.0      0.0              break
+#     28         1          0.0      0.0      0.0      return u
