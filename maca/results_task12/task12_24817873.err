@@ -1,0 +1,8 @@
+Loaded module: cuda/11.8
+/dtu/projects/02613_2025/conda/miniconda3/envs/02613/lib/python3.11/site-packages/numba/cuda/cudadrv/devicearray.py:886: NumbaPerformanceWarning: Host array used in CUDA kernel will incur copy overhead to/from device.
+  warn(NumbaPerformanceWarning(msg))
+/zhome/d1/8/213884/.lsbatch/1745778075.24817873.shell: line 14: 3935411 Killed                  python task12_sim.py 4571
+
+real	86m5.504s
+user	82m51.474s
+sys	0m28.918s
