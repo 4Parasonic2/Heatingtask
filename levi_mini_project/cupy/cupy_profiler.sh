@@ -11,4 +11,4 @@
 source /dtu/projects/02613_2025/conda/conda_init.sh
 conda activate 02613
 
-nsys profile -o cupy_profile python sim.py 100
+nsys profile -o cupy_profile python sim.py 10

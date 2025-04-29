@@ -6,7 +6,7 @@ import numpy as np
 
 def load_data(load_dir, bid):
     SIZE = 512
-    u = np.zeros((SIZE + 2, SIZE + 2))
+    u = np.zeros((SIZE + 2, SIZE + 2), dtype=np.float64)
     u[1:-1, 1:-1] = np.load(join(load_dir, f"{bid}_domain.npy"))
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     building_ids = building_ids[:N]
 
     # Load floor plans
-    all_u0 = np.empty((N, 514, 514))
+    all_u0 = np.empty((N, 514, 514), dtype=np.float64)
     all_interior_mask = np.empty((N, 512, 512), dtype='bool')
     for i, bid in enumerate(building_ids):
         u0, interior_mask = load_data(LOAD_DIR, bid)

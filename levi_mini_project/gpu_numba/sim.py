@@ -7,7 +7,7 @@ from numba import cuda
 
 def load_data(load_dir, bid):
     SIZE = 512
-    u = np.zeros((SIZE + 2, SIZE + 2))
+    u = np.zeros((SIZE + 2, SIZE + 2), dtype=np.float64)
     u[1:-1, 1:-1] = np.load(join(load_dir, f"{bid}_domain.npy"))
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
@@ -17,9 +17,12 @@ def jacobi_kernel(u, interior_mask, output):
     i, j = cuda.grid(2)
     i_cond = i > 0 and i < (u.shape[0] - 1) 
     j_cond = j > 0 and j < (u.shape[1] - 1)
-    is_interior = interior_mask[i,j] == True 
-    if i_cond and j_cond and is_interior:
-        output[i, j] = 0.25 * (u[i-1, j] + u[i+1, j] + u[i, j+1] + u[i, j-1])
+    is_interior = interior_mask[i - 1,j - 1] == True 
+    if i_cond and j_cond:
+        if is_interior:
+            output[i, j] = 0.25 * (u[i-1, j] + u[i+1, j] + u[i, j+1] + u[i, j-1])
+        else:
+            output[i, j] = u[i,j]
 
 def summary_stats(u, interior_mask):
     u_interior = u[1:-1, 1:-1][interior_mask]
@@ -48,7 +51,7 @@ if __name__ == '__main__':
     building_ids = building_ids[:N]
 
     # Load floor plans
-    all_u0 = np.empty((N, 514, 514))
+    all_u0 = np.empty((N, 514, 514),dtype=np.float64)
     all_interior_mask = np.empty((N, 512, 512), dtype='bool')
     for i, bid in enumerate(building_ids):
         u0, interior_mask = load_data(LOAD_DIR, bid)
@@ -63,9 +66,13 @@ if __name__ == '__main__':
 
     dummy_u0 = np.zeros((514,514))
     dummy_u = np.zeros((514,514))
+    dummy_mask = np.zeros((512, 512))
+    device_dummy_u0 = cuda.to_device(dummy_u0)
+    device_dummy_mask = cuda.to_device(dummy_mask)
+    device_dummy_u = cuda.to_device(dummy_u)
 
     all_u = np.empty_like(all_u0)
-    jacobi_kernel[blocks_per_grid, threads_per_block](dummy_u0,all_interior_mask[0],dummy_u)
+    jacobi_kernel[blocks_per_grid, threads_per_block](device_dummy_u0, device_dummy_mask,device_dummy_u)
     MAX_ITER = 20000
 
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):

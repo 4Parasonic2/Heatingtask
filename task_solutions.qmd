@@ -1,0 +1,45 @@
+Task 4
+
+The times spent are in the Time column
+```{python}
+# Line #      Hits         Time  Per Hit   % Time  Line Contents
+# ==============================================================
+#     15                                           @line_profiler.profile
+#     16                                           def jacobi(u, interior_mask, max_iter, atol=1e-6):
+#     17         1        153.0    153.0      0.0      u = np.copy(u)                                                           <---- Copy into temp array
+#     18
+#     19      3602        767.0      0.2      0.0      for i in range(max_iter):
+#     20                                                   # Compute average of left, right, up and down neighbors, see eq. (1)
+#     21      3602    1757806.0    488.0     61.7          u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1]) <--- Update values in copied array
+#     22      3602     316576.0     87.9     11.1          u_new_interior = u_new[interior_mask]                               <--- get interior values with the mask
+#     23      3602     455680.0    126.5     16.0          delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max() <--- get the biggest change in values
+#     24      3602     319196.0     88.6     11.2          u[1:-1, 1:-1][interior_mask] = u_new_interior                       <----- Update array
+#     25
+#     26      3602        978.0      0.3      0.0          if delta < atol:                                                  <----- If there is no change in the values, stop
+#     27         1          1.0      1.0      0.0              break
+#     28         1          0.0      0.0      0.0      return u
+```
+
+Task 5 - Static parallelization
+
+Tested on 100 inputs with CPU
+
+- Results
+	- Serial computation: 26m 50s
+	- 2 workers: 15m 24s
+	- 4 workers: 7m 59s
+	- 8 workers: 5m 24s
+ 	- 16 workers: 3m 10s
+- We can estimate the parallel fraction based on the curve
+
+Task 6 - Dynamic parallelization
+
+Tested on 100 inputs with CPU
+
+- Results
+	- Serial computation: 
+	- 2 workers: 
+	- 4 workers: 
+	- 8 workers: 
+	- 16 workers: 
+

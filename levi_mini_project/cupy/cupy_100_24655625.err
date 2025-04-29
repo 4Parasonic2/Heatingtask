@@ -1,0 +1,9 @@
+Loaded module: cuda/11.8
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Failed to create '/zhome/c6/c/213742/mini_project/cupy/cupy_profile.nsys-rep': File exists.
+Use `--force-overwrite true` to overwrite existing files.

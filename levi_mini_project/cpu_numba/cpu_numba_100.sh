@@ -1,5 +1,5 @@
 #!/bin/bash
-#BSUB -R "rusage[mem=1024MB] select[model==XeonGold6142] span[hosts=1]"
+#BSUB -R "rusage[mem=1024MB] select[model==XeonGold6126] span[hosts=1]"
 #BSUB -q hpc
 #BSUB -W 60
 #BSUB -J cpu_numba

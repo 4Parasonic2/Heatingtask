@@ -60,7 +60,7 @@ def summary_stats(u, interior_mask):
 
 if __name__ == '__main__':
     # Load data
-    LOAD_DIR = '../data/modified_swiss_dwellings'
+    LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
 
     n_proc = int(sys.argv[2])
     pool = multiprocessing.Pool(n_proc)
