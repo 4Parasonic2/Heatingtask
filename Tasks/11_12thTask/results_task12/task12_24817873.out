@@ -1,0 +1,59 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24817873: <task12> in cluster <dcc> Exited
+
+Job <task12> was submitted from host <n-62-30-2> by user <s243296> in cluster <dcc> at Sun Apr 27 20:21:15 2025
+Job was executed on host(s) <4*n-62-12-22>, in queue <c02613>, as user <s243296> in cluster <dcc> at Sun Apr 27 20:21:15 2025
+</zhome/d1/8/213884> was used as the home directory.
+</zhome/d1/8/213884/Maca/Heatingtask> was used as the working directory.
+Started at Sun Apr 27 20:21:15 2025
+Terminated at Sun Apr 27 21:47:23 2025
+Results reported at Sun Apr 27 21:47:23 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -R "rusage[mem=4096MB] span[hosts=1]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -q c02613
+#BSUB -W 3:00
+#BSUB -J task12
+#BSUB -n 4
+#BSUB -o task12_%J.out
+#BSUB -e task12_%J.err
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+time python task12_sim.py 4571
+
+
+------------------------------------------------------------
+
+TERM_MEMLIMIT: job killed after reaching LSF memory usage limit.
+Exited with exit code 137.
+
+Resource usage summary:
+
+    CPU time :                                   5004.84 sec.
+    Max Memory :                                 16384 MB
+    Average Memory :                             13922.64 MB
+    Total Requested Memory :                     16384.00 MB
+    Delta Memory :                               0.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                8
+    Run time :                                   5259 sec.
+    Turnaround time :                            5168 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <task12_24817873.err> for stderr output of this job.
+
